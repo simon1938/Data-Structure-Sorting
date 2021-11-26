@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/simon/CLionProjects/LO21_projet/seau.c
+stdio.h
+-
+seau.h
+C:/Users/simon/CLionProjects/LO21_projet/seau.h
+stdlib.h
+-
+string.h
+-
+
+C:/Users/simon/CLionProjects/LO21_projet/seau.h
+
