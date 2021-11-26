@@ -47,6 +47,7 @@ int main() {
     //étape 1//
 
 
+
     for (int i = 0; i < Base; ++i) {
 
         listDeSeau = ajouter_au_seau_correspondant_avec_derniere_valeur_avec_liste_initial(listDeSeau, Liste_initial,0,i);
@@ -61,18 +62,12 @@ int main() {
 
 
 
-
-
-
-
-
-
     printf("=============Etape2==========\n");
     //Il va falloir créer une lise permanante pour stocker les élement triéer
 
     for (int i = 0; i < Base; ++i) {
 
-        listDeSeau = ajouter_au_seau_correspondant_avec_derniere_valeur(listDeSeau,listDeSeau[i],1,i);
+        listDeSeau = ajouter_au_seau_correspondant_avec_derniere_valeur(listDeSeau,listDeSeau[i],1,i,Base);
 
 
         afficher_tout_les_seau(listDeSeau,Base);

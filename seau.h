@@ -23,7 +23,7 @@ List_de_seau creer_liste_de_seau(int Base);
 
 List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur_avec_liste_initial(List_de_seau listDeSeau,seau Liste_initial,int position,int numero_seau);
 
-List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur(List_de_seau listDeSeau,seau Liste_initial,int position,int numero_seau);
+List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur(List_de_seau listDeSeau,seau Liste_initial,int position,int numero_seau,int Base);
 
 //fonction seau
 

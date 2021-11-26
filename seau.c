@@ -64,6 +64,7 @@ List_de_seau creer_liste_de_seau(int Base){
     for (int i = 0; i < Base; ++i) {
         listDeSeau[i]= malloc(sizeof (seau));
         listDeSeau[i]->suivant=NULL;
+        strcpy(listDeSeau[i]->number,"0");
     }
 
     return listDeSeau;
@@ -77,6 +78,10 @@ seau supprimer_la_tete(seau Seau){
         perm=Seau->suivant;
         free(Seau);
         return perm;
+    }else
+    {
+    Seau=NULL;
+        return Seau;
     }
 
 }
@@ -165,30 +170,39 @@ List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur_avec_liste_initi
 seau racorder_entete(seau Seau,seau element_a_trouver){
 
     seau perm2=Seau;
-    printf("%d,%d\n",perm2,element_a_trouver);
-    while (perm2->suivant!=element_a_trouver){
-
-        printf("on cherche\n");
+    printf("%d,%d %d\n",perm2,element_a_trouver,Seau);
 
 
-        perm2=perm2->suivant;
+    if(perm2==element_a_trouver){
+
+        //supprimer en tete
+        Seau=supprimer_la_tete(Seau);
+        printf("on cherche1\n");
+        printf("%d",Seau->number);
+        printf("%d",Seau->suivant);
+        return Seau;
     }
-    if(perm2->suivant!=NULL) {
-        perm2= perm2->suivant->suivant;
+    else if(perm2->suivant==NULL){
+        perm2=NULL;
+        free(element_a_trouver->suivant);
         printf("on cherche2\n");
-
+        return perm2;
     }
     else
     {
+        while (perm2->suivant!=element_a_trouver) {
 
-        free(element_a_trouver->suivant);
-        perm2=NULL;
+            printf("on cherche\n");
+
+            perm2 = perm2->suivant;
+        }
+        perm2=perm2->suivant->suivant;
+        free(element_a_trouver);
+        return perm2;
+
     }
 
 
-    printf("on cherche3\n");
-
-    return Seau;
 
 }
 
@@ -197,11 +211,7 @@ seau racorder_entete(seau Seau,seau element_a_trouver){
 
 
 
-
-
-
-
-List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur(List_de_seau listDeSeau,seau Liste_initial,int position,int numero_seau){
+List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur(List_de_seau listDeSeau,seau Liste_initial,int position,int numero_seau,int Base){
 
     int position_souhaiter;
     int chiffre_viser;
@@ -211,7 +221,7 @@ List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur(List_de_seau lis
     // List_de_seau perm2=listDeSeau;
 
 
-    while (perm!=NULL){
+    while (perm->suivant!=NULL){
 
         position_souhaiter=strlen(perm->number)-1-position;
         chiffre_viser=convertion_char_int(perm->number[position_souhaiter]);
@@ -219,11 +229,12 @@ List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur(List_de_seau lis
 
         if(position_souhaiter>=0&&chiffre_viser!=numero_seau){
 
-            printf("le nombre est changeable %s %d %d\n",perm->number,chiffre_viser,position_souhaiter);
+            printf("le nombre %s est changeable Chiffre rechercher %d Postion dans nombre : %d Tour numero Seau : %d \n",perm->number,chiffre_viser,position_souhaiter,numero_seau);
             strcpy(nombre_copier,perm->number);
             //supprimer l'element de tete de la perm et en suite...
 
                 listDeSeau[numero_seau]=racorder_entete(listDeSeau[numero_seau],perm);
+                perm=listDeSeau[numero_seau];
 
 
 
@@ -231,14 +242,23 @@ List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur(List_de_seau lis
         }else{
 
             printf("le nombre est pas bon \n");
+            perm=perm->suivant;
         }
 
-        perm=perm->suivant;
+
         printf("=====Vérif\n");
-        afficher_tout_les_seau(listDeSeau,4);
+        afficher_tout_les_seau(listDeSeau,Base);
+        if(perm->suivant==NULL){
+            printf("Je suis le dernier nombre\n");
+        }
+        if(perm==NULL){
+            printf("Je suis videe\n");
+        }
+
         printf("=====Fin_Vérif\n");
     }
 
+    printf("Fin du prem tour %d\n",numero_seau);
     return listDeSeau;
 
 }
@@ -249,6 +269,9 @@ List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur(List_de_seau lis
 
 int convertion_char_int(char character) {
     int result = -1;
+    if(character=='0'){
+        return 0;
+    }
     if( character > 48 && character < 58) {
         result = character - 48; //les chiffres de 0 à 9 sont les caractères 48 à 57 du code ASCII
     } else if( character > 96 && character < 103){
