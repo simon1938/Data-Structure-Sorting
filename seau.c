@@ -35,6 +35,27 @@ seau ajouter_element_tete(seau liste, char *val){
     return new_elem ;
 }
 
+seau ajouter_element_queue(seau liste,char *val){
+
+    Element *new_elem= malloc(sizeof (Element));
+    strcpy(new_elem->number,val);
+    new_elem->suivant=NULL;
+    if(liste==NULL){
+        return new_elem;
+    }
+    else
+    {
+        seau perm=liste;
+        while (perm->suivant!=NULL){
+
+            perm=perm->suivant;
+        }
+        perm->suivant=new_elem;
+        return liste;
+    }
+
+}
+
 seau intialiser_liste_initial(seau Liste_initial,int nombre_de_nombre){
 
 
@@ -144,7 +165,7 @@ List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur_avec_liste_initi
 
     seau perm=Liste_initial;
 
-   // List_de_seau perm2=listDeSeau;
+
 
 
     while (perm!=NULL){
@@ -170,29 +191,31 @@ List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur_avec_liste_initi
 seau racorder_entete(seau Seau,seau element_a_trouver){
 
     seau perm2=Seau;
-    printf("%d,%d %d\n",perm2,element_a_trouver,Seau);
+  //  printf("%d,%d %d\n",perm2,element_a_trouver,Seau);
 
 
     if(perm2==element_a_trouver){
 
         //supprimer en tete
         Seau=supprimer_la_tete(Seau);
+        /*
         printf("on cherche1\n");
         printf("%d",Seau->number);
         printf("%d",Seau->suivant);
+         */
         return Seau;
     }
     else if(perm2->suivant==NULL){
         perm2=NULL;
         free(element_a_trouver->suivant);
-        printf("on cherche2\n");
+      //  printf("on cherche2\n");
         return perm2;
     }
     else
     {
         while (perm2->suivant!=element_a_trouver) {
 
-            printf("on cherche\n");
+          //  printf("on cherche\n");
 
             perm2 = perm2->suivant;
         }
@@ -211,10 +234,11 @@ seau racorder_entete(seau Seau,seau element_a_trouver){
 
 
 
-List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur(List_de_seau listDeSeau,seau Liste_initial,int position,int numero_seau,int Base){
+List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur(List_de_seau listDeSeau,seau Liste_initial,seau liste_transition,int position,int numero_seau,int Base){
 
     int position_souhaiter;
     int chiffre_viser;
+    seau pointeur_temporaire=NULL;
 
     seau perm=Liste_initial;
     Nombre nombre_copier= malloc(sizeof (char)*10);
@@ -224,6 +248,9 @@ List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur(List_de_seau lis
     while (perm->suivant!=NULL){
 
         position_souhaiter=strlen(perm->number)-1-position;
+        if(position_souhaiter<0){
+            position_souhaiter=0;
+        }
         chiffre_viser=convertion_char_int(perm->number[position_souhaiter]);
 
 
@@ -235,6 +262,9 @@ List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur(List_de_seau lis
 
                 listDeSeau[numero_seau]=racorder_entete(listDeSeau[numero_seau],perm);
                 perm=listDeSeau[numero_seau];
+                liste_transition= ajouter_element_queue(liste_transition,nombre_copier);
+
+
 
 
 
@@ -248,17 +278,12 @@ List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur(List_de_seau lis
 
         printf("=====Vérif\n");
         afficher_tout_les_seau(listDeSeau,Base);
-        if(perm->suivant==NULL){
-            printf("Je suis le dernier nombre\n");
-        }
-        if(perm==NULL){
-            printf("Je suis videe\n");
-        }
-
         printf("=====Fin_Vérif\n");
     }
-
+    liste_transition= ajouter_element_queue(liste_transition,"seau");
+s    afficher_liste_initiale(liste_transition);//probleme avec le fait que le pointeur est remplacer peut etre obliger de faire avec tableau... a voir
     printf("Fin du prem tour %d\n",numero_seau);
+
     return listDeSeau;
 
 }

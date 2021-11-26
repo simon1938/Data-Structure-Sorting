@@ -15,6 +15,8 @@ int main() {
 
      seau Liste_initial=NULL;    //Liste initial des nombres à trier
 
+
+
      //Variable d'itération/divers//
 
      int i=0;
@@ -42,11 +44,13 @@ int main() {
 
     afficher_liste_initiale(Liste_initial);
 
+    seau liste_transition=NULL;
+
     // Fin etape 0//
 
     //étape 1//
 
-
+//mise en place du tableau de seau//
 
     for (int i = 0; i < Base; ++i) {
 
@@ -54,20 +58,25 @@ int main() {
         printf("=====\n");
 
     }
-
     afficher_tout_les_seau(listDeSeau,Base);
+
+//mise en place du tableau de seau//
+
     //Fin étape 1//
 
     //  Etape 2//
-
+//trie en fonction de l'avant dernier nombre//
 
 
     printf("=============Etape2==========\n");
-    //Il va falloir créer une lise permanante pour stocker les élement triéer
+
+
+
+//for w allant de 1 a base-1//
 
     for (int i = 0; i < Base; ++i) {
 
-        listDeSeau = ajouter_au_seau_correspondant_avec_derniere_valeur(listDeSeau,listDeSeau[i],1,i,Base);
+        listDeSeau = ajouter_au_seau_correspondant_avec_derniere_valeur(listDeSeau,listDeSeau[i],liste_transition,1,i,Base);
 
 
         afficher_tout_les_seau(listDeSeau,Base);
@@ -76,6 +85,9 @@ int main() {
     }
 
     afficher_tout_les_seau(listDeSeau,Base);
+    afficher_liste_initiale(liste_transition);
+
+//for w allant de 1 a base-1//
 
 
     return 0;
