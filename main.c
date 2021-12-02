@@ -25,19 +25,23 @@ int main() {
 
 
 
-    //============Instruction============//
 
+
+    //============Instruction============//
+char Base1;
     //Etape 0 demander des nombre et les stocker dans un seau  && créer Tableau de seaux// correct
 
     printf("Bienvenue veuillez entrez la base dans laquelle vous voulez entrez vos nombres\n");
     scanf("%d",&Base);
 
-    printf("==%d==",'8'-48);
+    printf("Veuillez entrez le nombre de nombre que vous voulez trier s'il vous plait ;)\n");
+    scanf("%d",&nombre_de_nombre);
+
+
 
     listDeSeau= creer_liste_de_seau(Base);                              //Créaction du tableau de seau
 
-    printf("Veuillez entrez le nombre de nombre que vous voulez trier s'il vous plait ;)\n");
-    scanf("%d",&nombre_de_nombre);
+
 
     printf("Veuillez entrez la taille de chaque nombre  s'il vous plait ;)\n");
     scanf("%d",&taille_nombre);
@@ -134,6 +138,7 @@ int main() {
 //travaux
 
         }
+        printf("Fin Grand Tour position vaut %d\n",position);
     }
 
   //  afficher_tout_les_seau(listDeSeau,Base);
@@ -143,7 +148,8 @@ int main() {
 
 
     return 0;
-}
+
+   }
 
 
 

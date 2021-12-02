@@ -177,7 +177,7 @@ List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur_avec_liste_initi
         if(perm->number[taille]==numero_seau+48){
         //    printf("le nombre est bon %s\n",perm->number);
 
-            listDeSeau[numero_seau]=ajouter_element_tete(listDeSeau[numero_seau],perm->number);
+            listDeSeau[numero_seau]=ajouter_element_queue(listDeSeau[numero_seau],perm->number);
         }else{
 
             //    printf("le nombre est pas bon \n");
