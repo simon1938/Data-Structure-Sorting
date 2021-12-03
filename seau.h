@@ -35,9 +35,12 @@ seau ajouter_element_queue(seau liste,char *val);
 Nombre dernier_nombre(seau Seau);
 
 seau supprimer_la_tete(seau Seau);
+seau supprimer_la_queue(seau Seau);
 
 seau racorder_entete(seau Seau,seau element_a_trouver);
-
+seau free_seau(seau Seau);
+List_de_seau free_listedeseau(List_de_seau listDeSeau,int Base);
+List_de_seau mettreajourlesseau(List_de_seau listDeSeau,seau Liste_intermediaire,int Base);
 
 
 

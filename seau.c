@@ -9,21 +9,6 @@
 
 //Fonction sur les seau//
 
-Nombre dernier_nombre(seau Seau){
-
-    seau perm=Seau;
-
-    while (perm->suivant!=NULL){
-
-        perm=perm->suivant;
-
-    }
-
-    return perm->number;
-
-}
-
-
 seau ajouter_element_tete(seau liste, char *val){
 
     Element *new_elem= malloc(sizeof (Element));
@@ -40,19 +25,18 @@ seau ajouter_element_queue(seau liste,char *val){
     Element *new_elem= malloc(sizeof (Element));
     strcpy(new_elem->number,val);
     new_elem->suivant=NULL;
-    if(liste->suivant==NULL){
+    if(liste==NULL){
         new_elem->suivant=liste;
         return new_elem;
     }
     else
     {
         seau perm=liste;
-        while (perm->suivant->suivant!=NULL){
+        while (perm->suivant!=NULL){
 
             perm=perm->suivant;
         }
-        new_elem->suivant=perm->suivant;
-        perm->suivant=new_elem;
+       perm->suivant=new_elem;
         return liste;
     }
 
@@ -68,7 +52,7 @@ seau intialiser_liste_initial(seau Liste_initial,int nombre_de_nombre){
         printf("Nombre numero %d \n",i);
         scanf("%s",nombre_a_ajouter);
         printf("Nombre est %s \n",nombre_a_ajouter);
-        Liste_initial=ajouter_element_tete(Liste_initial,nombre_a_ajouter);
+        Liste_initial=ajouter_element_queue(Liste_initial,nombre_a_ajouter);
     }
 
 
@@ -86,27 +70,43 @@ List_de_seau creer_liste_de_seau(int Base){
 
     for (int i = 0; i < Base; ++i) {
         listDeSeau[i]= malloc(sizeof (seau));
-        listDeSeau[i]->suivant=NULL;
-        strcpy(listDeSeau[i]->number,"0");
-    }
+       listDeSeau[i]=NULL;
+            }
 
     return listDeSeau;
 }
 
 seau supprimer_la_tete(seau Seau){
 
-    seau perm=Seau;
 
     if(Seau!=NULL){
-        perm=Seau->suivant;
+        seau perm=Seau->suivant;
         free(Seau);
         return perm;
     }else
     {
-        Seau=NULL;
-        return Seau;
+
+        return NULL;
     }
 
+}
+seau supprimer_la_queue(seau Seau){
+    seau temp1=Seau;
+    seau temp2=Seau;
+    if(Seau==NULL){
+        return NULL;
+    }
+    if(Seau->suivant==NULL){
+        free(Seau);
+        return NULL;
+    }
+    while (temp1->suivant!=NULL){
+        temp2=temp1;
+        temp1=temp1->suivant;
+    }
+    temp2->suivant=NULL;
+    free(temp1);
+    return Seau;
 }
 
 //Procédure
@@ -148,7 +148,7 @@ void afficher_tout_les_seau(List_de_seau listDeSeau,int base){
 
     while(i<base) {
         seau_courant=listDeSeau[i];
-        while (seau_courant->suivant != NULL) {
+        while (seau_courant!= NULL) {
 
             printf("Le nombre du seau numero : %d en postion %d vaut :%s\n", i, j, seau_courant->number);
             j++;
@@ -157,31 +157,72 @@ void afficher_tout_les_seau(List_de_seau listDeSeau,int base){
         j=0;
         i++;
 
+
     }
+}
+
+seau free_seau(seau Seau){
+
+
+    while (Seau!=NULL){
+
+        Seau= supprimer_la_queue(Seau);
+
+    }
+    return Seau;
+    /*
+    seau current = Seau;
+    seau next = Seau->suivant;
+    while (current != NULL) {
+        free(current);
+        if(next != NULL) {
+            current = next;
+            next = next->suivant;
+        }
+    }
+     */
+}
+
+List_de_seau free_listedeseau(List_de_seau listDeSeau,int Base){
+
+    for(int i=0; i < Base; i++){
+        listDeSeau[i]=free_seau(listDeSeau[i]);
+
+    }
+    return listDeSeau;
+}
+
+List_de_seau mettreajourlesseau(List_de_seau listDeSeau,seau Liste_intermediaire,int Base){
+
+    seau perm=Liste_intermediaire;
+    for (int i = 0; i < Base; ++i) {
+
+        if(strcmp(perm->number,"s")!=0) {
+            while (strcmp(perm->number,"s")!=0) {
+                listDeSeau[i] = ajouter_element_queue(listDeSeau[i], perm->number);
+                perm = perm->suivant;
+            }
+        }
+        perm=perm->suivant;
+    }
+    return listDeSeau;
 }
 
 
 List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur_avec_liste_initial(List_de_seau listDeSeau,seau Liste_initial,int position,int numero_seau){
 
-    int taille;
+    int chiffre;
 
     seau perm=Liste_initial;
 
-
-
-
     while (perm!=NULL){
 
-        taille=strlen(perm->number)-1-position;
 
-        if(perm->number[taille]==numero_seau+48){
-        //    printf("le nombre est bon %s\n",perm->number);
+            chiffre= convertion_char_int(perm->number[strlen(perm->number)-1]);
 
-            listDeSeau[numero_seau]=ajouter_element_queue(listDeSeau[numero_seau],perm->number);
-        }else{
 
-            //    printf("le nombre est pas bon \n");
-        }
+            listDeSeau[chiffre]=ajouter_element_queue(listDeSeau[chiffre],perm->number);
+
 
         perm=perm->suivant;
     }
@@ -193,7 +234,7 @@ List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur_avec_liste_initi
 seau racorder_entete(seau Seau,seau element_a_trouver){
 
     seau perm2=Seau;
-     printf("%d,%d %d\n",perm2,element_a_trouver,Seau);
+    // printf("%d,%d %d\n",perm2,element_a_trouver,Seau);
 
 
     if(perm2==element_a_trouver){
@@ -201,7 +242,7 @@ seau racorder_entete(seau Seau,seau element_a_trouver){
         //supprimer en tete
         Seau=supprimer_la_tete(Seau);
 
-        printf("on cherche1\n");
+        //   printf("on cherche1\n");
           /*
         printf("%d",Seau->number);
         printf("%d",Seau->suivant);
@@ -210,22 +251,22 @@ seau racorder_entete(seau Seau,seau element_a_trouver){
     }
     else if(perm2->suivant==NULL){
         perm2=NULL;
-        free(element_a_trouver->suivant);
-         printf("on cherche2\n");
+
+        //   printf("on cherche2\n");
        return perm2;
     }
     else
     {
-        while (perm2->suivant!=element_a_trouver) {//
+        while (perm2!=element_a_trouver) {//
 
-              printf("on cherche\n");
+            //   printf("on cherche\n");
 
             perm2 = perm2->suivant;
         }
-       // printf("on cherche\n");
-        perm2->suivant=perm2->suivant->suivant;//
+        // printf("on cherche\n");
+       perm2=perm2->suivant;
         free(element_a_trouver);
-        return Seau;//
+        return Seau;
 
 
     }
@@ -233,6 +274,7 @@ seau racorder_entete(seau Seau,seau element_a_trouver){
 
 
 }
+
 
 
 
