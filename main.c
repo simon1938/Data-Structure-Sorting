@@ -21,16 +21,13 @@ int main() {
 
      int i=0;
      char *nombre= malloc(sizeof (char)*10);
-     char val[4]="525";
+
 
 
 
 
 
     //============Instruction============//
-char Base1;
-
-    //Etape 0 demander des nombre et les stocker dans un seau  && créer Tableau de seaux// correct
 
     printf("Bienvenue veuillez entrez la base dans laquelle vous voulez entrez vos nombres\n");
     scanf("%d",&Base);
@@ -49,6 +46,7 @@ char Base1;
 
     Liste_initial=intialiser_liste_initial(Liste_initial,nombre_de_nombre);
 
+    printf("voici votre liste initial\n");
     afficher_liste_initiale(Liste_initial);
 
 
@@ -61,15 +59,12 @@ char Base1;
 
     printf("==============fin Etape1==========\n\n");
 
-
-    printf("=============deuxieme partie==========\n");
-
 //variablenessesaire //
     int position;
     int position_souhaiter;
     int chiffre_viser;
     seau Liste_intermediaire=NULL;
-   //variablenessesaire //
+//variablenessesaire //
 
     for ( position = 1; position < taille_nombre; ++position) {
 
@@ -79,8 +74,6 @@ char Base1;
 
                 seau perm = listDeSeau[numero_seau];
                 Nombre nombre_copier = malloc(sizeof(char) * 10);
-                // List_de_seau perm2=listDeSeau;
-
 
                 while (perm != NULL) {
 
@@ -99,33 +92,24 @@ char Base1;
                     }
                     perm = perm->suivant;
 
-                    //afficher_tout_les_seau(listDeSeau, Base);
-
                 }
-
-               // printf("Fin du prem tour %d\n", numero_seau);
-
 
             }
             Liste_intermediaire = ajouter_element_queue(Liste_intermediaire, "s");
-            printf("===aie%d===\n",numero_maj);
 
         }
-        printf("===testttt\n");
-        afficher_liste_initiale(Liste_intermediaire);
-        printf("===testttt=\n");
-       listDeSeau= free_listedeseau(listDeSeau,Base);
+
+      //  afficher_liste_initiale(Liste_intermediaire);
+            listDeSeau= free_listedeseau(listDeSeau,Base);
         listDeSeau=mettreajourlesseau(listDeSeau,Liste_intermediaire,Base);
         Liste_intermediaire=free_seau(Liste_intermediaire);
         afficher_tout_les_seau(listDeSeau,Base);
-        printf("Fin Grand Tour position vaut %d\n",position);
-        printf("=============Etape%d==========\n",position);
+       printf("=============Etape%d==========\n",position+1);
 
         }
-    afficher_tout_les_seau(listDeSeau,Base);
+    printf("Voici ci dessus votre liste de nombre triee\n");
 
     return 0;
-
    }
 
 
