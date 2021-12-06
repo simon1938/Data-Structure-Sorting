@@ -51,13 +51,13 @@ int main() {
 
 
 
-    printf("===========Etape 1 ===============\n");
+
 
        listDeSeau = ajouter_au_seau_correspondant_avec_derniere_valeur_avec_liste_initial(listDeSeau, Liste_initial,0,i);
 
         afficher_tout_les_seau(listDeSeau,Base);
 
-    printf("==============fin Etape1==========\n\n");
+    printf("===========Etape 1 ===============\n");
 
 //variablenessesaire //
     int position;
