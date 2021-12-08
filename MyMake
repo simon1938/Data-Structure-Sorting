@@ -1,0 +1,8 @@
+main: main.o seau.o
+	gcc -o main main.o seau.o 
+seau.o: seau.c
+	gcc -o seau.o -c  seau.c 
+main.o: main.c seau.h
+	gcc -o main.o -c main.c 
+
+ 
