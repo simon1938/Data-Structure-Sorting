@@ -42,15 +42,20 @@ seau ajouter_element_queue(seau liste,char *val){
 
 }
 
-seau intialiser_liste_initial(seau Liste_initial,int nombre_de_nombre){
+seau intialiser_liste_initial(seau Liste_initial,int nombre_de_nombre, int taille_nombre){
 
 
 
     char *nombre_a_ajouter= malloc(sizeof (char)*10);
 
     for (int i = 0; i < nombre_de_nombre; ++i) {
-        printf("Nombre numero %d \n",i);
-        scanf("%s",nombre_a_ajouter);
+
+        do {
+            printf("Nombre numero %d \n", i);
+
+            scanf("%s", nombre_a_ajouter);
+        } while (strlen(nombre_a_ajouter)!=taille_nombre);
+
         printf("Nombre est %s \n",nombre_a_ajouter);
         Liste_initial=ajouter_element_queue(Liste_initial,nombre_a_ajouter);
     }

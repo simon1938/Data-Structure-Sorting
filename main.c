@@ -28,23 +28,25 @@ int main() {
 
 
     //============Instruction============//
-
+do {
     printf("Bienvenue veuillez entrez la base dans laquelle vous voulez entrez vos nombres\n");
-    scanf("%d",&Base);
+    scanf("%d", &Base);
+} while (Base<2||Base>16);
+
 
     printf("Veuillez entrez le nombre de nombre que vous voulez trier s'il vous plait ;)\n");
-    scanf("%d",&nombre_de_nombre);
+    scanf("%d", &nombre_de_nombre);
 
 
 
     listDeSeau= creer_liste_de_seau(Base);                             //Créaction du tableau de seau
 
-
+do {
     printf("Veuillez entrez la taille de chaque nombre  s'il vous plait ;)\n");
-    scanf("%d",&taille_nombre);
+    scanf("%d", &taille_nombre);
+} while (taille_nombre<=0||taille_nombre>10);
 
-
-    Liste_initial=intialiser_liste_initial(Liste_initial,nombre_de_nombre);
+    Liste_initial=intialiser_liste_initial(Liste_initial,nombre_de_nombre,taille_nombre);
 
     printf("voici votre liste initial\n");
     afficher_liste_initiale(Liste_initial);

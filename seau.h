@@ -27,7 +27,7 @@ List_de_seau ajouter_au_seau_correspondant_avec_derniere_valeur(List_de_seau lis
 
 //fonction seau
 
-seau intialiser_liste_initial(seau Liste_initial,int nombre_de_nombre);
+seau intialiser_liste_initial(seau Liste_initial,int nombre_de_nombre,int taille_nombre);
 
 seau ajouter_element_tete(seau liste,char *val);
 seau ajouter_element_queue(seau liste,char *val);
