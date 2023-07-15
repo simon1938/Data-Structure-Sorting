@@ -1,4 +1,4 @@
-# C Data Structure Sorting
+# Data Structure Sorting
 
 ## Description
 This is a project aimed at developing a fast and efficient method for sorting data structures in the C programming language.
